@@ -20,6 +20,8 @@ class Solution:
                 left = max(left, substring_map[element] + 1)
             substring_map[element] = right
             max_substring_count = max(max_substring_count, right - left + 1)
+            if max_substring_count > array_size - left:
+                return max_substring_count
             right += 1
         return max_substring_count
 
