@@ -8,21 +8,19 @@ from typing import List
 class Solution:
     def longest_substring_with_distinct_characters(self, arr: List[str]) -> int:
         array_size = len(arr)
-        array_index = 0
-        max_substring_count = 0
         if array_size <= 1:
             return array_size
-        while array_index < array_size:
-            substring = {}
-            for i in range(array_index, array_size):
-                if arr[i] in substring.keys():
-                    break
-                substring[arr[i]] = True
-                print(substring)
-            max_substring_count = max(max_substring_count, len(substring.keys()))
-            if max_substring_count >= array_size - array_index:
-                return max_substring_count
-            array_index += 1
+        substring_map = {}
+        left = 0
+        right = 0
+        max_substring_count = 0
+        while left < array_size and right < array_size:
+            element = arr[right]
+            if element in substring_map.keys():
+                left = max(left, substring_map[element] + 1)
+            substring_map[element] = right
+            max_substring_count = max(max_substring_count, right - left + 1)
+            right += 1
         return max_substring_count
 
 
